@@ -5,15 +5,27 @@ from fractions import Fraction
 import matplotlib.pyplot as plt
 
 
-class Fluxo_de_carga:
-    def __init__(self, Barras, res, rea):
-        self.n = Barras
-        self.r = res
-        self.x = rea
-        #self.yf = yf
-        #self.n = n
-        #self.x = np.linspace(x0, xf, n)
-        #self.y = np.linspace(y0, yf, n)
+# Criar uma classe para calcular o fluxo de carga em sistemas eletricos por meio do metodo de newton-raphson com sistemas de equacoes lineares
+
+
+class Newton:
+    def __init__(self, f, x0, tol=1e-6, nmax=100):
+        self.f = f
+        self.x0 = x0
+        self.tol = tol
+        self.nmax = nmax
+
+    def iterate(self):
+        x = self.x0
+        for i in range(self.nmax):
+            fx = self.f(x)
+            if fx == 0:
+                return x
+            dfx = self.f.diff(x)
+            if dfx == 0:
+                return None
+            x = x - fx/dfx
+        return None
 
     
-
+    
