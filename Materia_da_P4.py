@@ -1,32 +1,35 @@
+from tkinter.tix import Y_REGION
 import numpy as np
 from sympy import * #var, Lambda, exp, log, sin, cos, tan, sqrt, ln
 
 teta2, V2 = var('teta2 V2')
 
 class Fluxo_de_carga:
-    def __init__(self, Barras, Impedancias, Matriz_Barras, Matriz_Impedancias, Ep, Eq):
-        self.Barras = Barras
-        self.Impedancias = Impedancias
-        self.Matriz_Barras = Matriz_Barras
-        self.Matriz_Impedancias = Matriz_Impedancias
+    def __init__(self, Ep, Eq):
         self.Ep = Ep
         self.Eq = Eq
+        
+        #self.Y = Y
+        #self.Delta_P_Q = Delta_P_Q
     
-    def Matriz_Y(self):
-        Y = np.zero((self.Barras, self.Barras))
-        for i in range(len(self.Barras)):
-            for j in range(len(self.Barras)):
-                if (i == j):
-                    Y[i, j] = 1/self.Impedancias[i]
-                Y[i,j] = 1 / self.Matriz_Barras[i,j]
-        Y[self.Barras][self.Barras] = -1/(0.01+0.05j)
-        y21 = -1/(0.01+0.05j)
-        y11 = -y12
-        y22 = -y12
+    def formata_matriz(self, M):
+        m = len(M) # número de linhas
+        n = len(M[0]) # número de colunas
+        s = ""
+        for i in range(m):
+            for j in range(n):
+                s += "%9.4f " % M[i][j]
+                s += "\n"
+        return s
 
-        #Matriz de admitância
-        Y = np.empty((2), dtype=complex) #ordem da matriz
-        Y = np.array([[y11, y12], [y21, y22]])
+    def Admitancia(self, Y):
         G = Y.real
         B = Y.imag
- 
+
+        print('\nY = %s' % self.formata_matriz(Y))
+        print('\nG = \n%s' % self.formata_matriz(G))
+        print('\nB = \n%s' % self.formata_matriz(B))
+
+        return G, B
+
+    
