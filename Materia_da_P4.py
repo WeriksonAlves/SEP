@@ -39,23 +39,24 @@ class Fluxo_de_carga:
     def define_variaveis(self, Matriz_Barras):
         for i in (Matriz_Barras):
             if ("VT" in Matriz_Barras[i].keys()):
-                self.V1 = Matriz_Barras[i]["VT"][0]
-                self.T1 = Matriz_Barras[i]["VT"][1]
+                V1 = Matriz_Barras[i]["VT"][0]
+                T1 = Matriz_Barras[i]["VT"][1]
                 #P1 = PK()
                 #Q1 = QK()
             elif ("PV" in Matriz_Barras[i].keys()):
-                self.V2 = Matriz_Barras[i]["PV"][0]
-                self.T2 = var('T2')
-                self.P2_esp = Matriz_Barras[i]["PV"][2]
+                V2 = Matriz_Barras[i]["PV"][0]
+                T2 = var('T2')
+                P2_esp = Matriz_Barras[i]["PV"][2]
                 #Q2 = QK()
             elif ("PQ" in Matriz_Barras[i].keys()):
-                self.V3 = var('V3')
-                self.T3 = var('T3')
-                self.P3_esp = Matriz_Barras[i]["PQ"][2]
-                self.Q3_esp = Matriz_Barras[i]["PQ"][3]
-        self.V = [self.V1, self.V2, self.V3]
-        self.T = [self.T1, self.T2, self.T3]
-        self.P_Q_esp = [self.P2_esp, self.P3_esp, self.Q3_esp] 
+                V3 = var('V3')
+                T3 = var('T3')
+                P3_esp = Matriz_Barras[i]["PQ"][2]
+                Q3_esp = Matriz_Barras[i]["PQ"][3]
+        self.V = [V1, V2, V3]
+        self.T = [T1, T2, T3]
+        self.P_Q_esp = [P2_esp, P3_esp, Q3_esp] 
+        
         print('\nV1, V2, V3 = ',self.V)
         print('\nT1, T2, T3 = ',self.T)
         print('\nP_Q_esp = ',self.P_Q_esp)
